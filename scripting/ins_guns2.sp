@@ -7,7 +7,7 @@
 #define PLUGIN_VERSION "0.1.0"
 #define SPAMTIME 1
 
-// While true, all clients are able to
+// While true, all clients are able to access the VIP Gun Menu.
 #define IGNORE_VIP_CHECK false
 
 int lastWeaponsTime[MAXPLAYERS + 1] = {0, ...};
