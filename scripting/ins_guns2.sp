@@ -20,15 +20,15 @@ public Plugin myinfo = {
 	url = "https://github.com/MaximDevoir/ins-guns2"
 }
 
-public OnClientPostAdminCheck(client){
+public OnClientPostAdminCheck(client) {
 	lastWeaponsTime[client] = 0;
 }
 
-public OnClientDisconnect_Post(client){
+public OnClientDisconnect_Post(client) {
 	lastWeaponsTime[client] = 0;
 }
 
-public OnPluginStart(){
+public OnPluginStart() {
 	LoadTranslations("common.phrases");
 
 	if (IGNORE_VIP_CHECK == true) {
