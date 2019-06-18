@@ -12,3 +12,5 @@
 
 Copy the directories `plugins` and `scripting` to your
 `steamapps\common\Insurgency Dedicated Server\insurgency` folder.
+
+Then, reload your plugins with `sm plugins unload_all; sm plugins refresh`
