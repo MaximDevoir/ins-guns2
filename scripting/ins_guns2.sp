@@ -8,7 +8,7 @@
 
 int g_lastWeaponsTime[MAXPLAYERS + 1] = {0, ...};
 
-int lastWeaponsTime[MAXPLAYERS + 1] = {0, ...};
+Handle g_IgnoreVIPCheck;
 
 public Plugin myinfo = {
 	name = PLUGIN_NAME,
@@ -28,17 +28,24 @@ public OnClientDisconnect_Post(client) {
 
 public OnPluginStart() {
 	LoadTranslations("common.phrases");
+	CreateConVar("ins_guns2_version", PLUGIN_VERSION, PLUGIN_NAME, FCVAR_NOTIFY|FCVAR_SPONLY|FCVAR_REPLICATED);
+	g_IgnoreVIPCheck = CreateConVar("ins_guns2_ignore_vip_check",
+		"0",
+		"When set to 1, all players may access the guns menu.",
+		FCVAR_NOTIFY,
+		true,
+		0.0,
+		true,
+		1.0);
 
-	if (IGNORE_VIP_CHECK == true) {
-		ReplyToCommand(0, "[SM Guns2] IGNORE_VIP_CHECK is set to TRUE.");
-		ReplyToCommand(0, "[SM Guns2] All players are able to select weapons while IGNORE_VIP_CHECK is TRUE.");
+	if (GetConVarInt(g_IgnoreVIPCheck) == 1) {
+		ReplyToCommand(0, "[SM Guns2] g_IgnoreVIPCheck is set to 1.");
+		ReplyToCommand(0, "[SM Guns2] All players are able to select weapons while g_IgnoreVIPCheck is 1.");
 	}
 
 	RegConsoleCmd("sm_guns2", WeaponMenu);
 	RegConsoleCmd("guns2", WeaponMenu);
-
 	HookEvent("round_start", OnRoundStart);
-	CreateConVar("ins_guns2_version", PLUGIN_VERSION, PLUGIN_NAME, FCVAR_NOTIFY|FCVAR_SPONLY|FCVAR_REPLICATED);
 }
 
 public OnRoundStart(Handle event, const char[] name, bool dontBroadcast) {
@@ -51,7 +58,7 @@ public Action WeaponMenu(int client, int args) {
 		return Plugin_Handled;
 	}
 
-	if (!isVIP(client) && IGNORE_VIP_CHECK != true) {
+	if (!isVIP(client) && GetConVarInt(g_IgnoreVIPCheck) != 1) {
 		PrintToChat(client, "The guns2 command is limited to the VIP.");
 		return Plugin_Handled;
 	}
