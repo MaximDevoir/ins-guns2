@@ -58,9 +58,7 @@ public Action WeaponMenu(int client, int args) {
 		return Plugin_Handled;
 	}
 
-	if(lastWeaponsTime[client] == 0
-		|| lastWeaponsTime[client] <= ( GetTime() - SPAMTIME )
-	){
+	if(lastWeaponsTime[client] == 0 || lastWeaponsTime[client] <= (GetTime() - SPAMTIME)) {
 		lastWeaponsTime[client] = GetTime();
 		Weapons(client);
 	} else  {
