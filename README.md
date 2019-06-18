@@ -5,7 +5,9 @@
 
 ## Commands
 
-`guns2`
+`guns2` and `sm_guns2` will open the guns2 menu for applicable clients.
+
+## ConVar
 
 `sm_guns2`
 
