@@ -43,7 +43,7 @@ public OnPluginStart() {
 	CreateConVar("ins_guns2_version", PLUGIN_VERSION, PLUGIN_NAME, FCVAR_NOTIFY|FCVAR_SPONLY|FCVAR_REPLICATED);
 }
 
-public OnRoundStart(Handle event, const char[] name, bool dontBroadcast){
+public OnRoundStart(Handle event, const char[] name, bool dontBroadcast) {
 	PrintToChatAll("The VIP can type !guns2 to open the guns menu.");
 }
 
@@ -58,10 +58,10 @@ public Action WeaponMenu(int client, int args) {
 		return Plugin_Handled;
 	}
 
-	if(lastWeaponsTime[client] == 0 || lastWeaponsTime[client] <= (GetTime() - SPAMTIME)) {
+	if (lastWeaponsTime[client] == 0 || lastWeaponsTime[client] <= (GetTime() - SPAMTIME)) {
 		lastWeaponsTime[client] = GetTime();
 		Weapons(client);
-	} else  {
+	} else {
 		PrintToChat(client, "Wait %d seconds to use guns2.", SPAMTIME - (GetTime() - lastWeaponsTime[client]));
 	}
 
@@ -102,9 +102,9 @@ public Action Weapons(client) {
 	return Plugin_Handled;
 }
 
-public WeaponMenuHandler(Handle menu, MenuAction action, client, itemNum){
-	if(action == MenuAction_Select){
-		switch (itemNum){
+public WeaponMenuHandler(Handle menu, MenuAction action, client, itemNum) {
+	if (action == MenuAction_Select) {
+		switch (itemNum) {
 			case 0: {
 				GiveClientWeapon(client, "weapon_mp5", "MP5K");
 			}
@@ -172,7 +172,7 @@ public WeaponMenuHandler(Handle menu, MenuAction action, client, itemNum){
 				GiveClientWeapon(client, "weapon_mosin", "Mosin");
 			}
 		}
-  }
+	}
 }
 
 public GiveClientWeapon(int client, const char[] item, const char[] name) {
