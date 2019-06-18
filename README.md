@@ -1,7 +1,8 @@
 # Insurgency Guns2 Addon
 
 > Allows the VIP to acquire a primary weapon through using the `guns2` command.
-> Limits `guns2` to VIPs only.
+> Limits weapons menu to VIPs only. This can be changes by setting
+> `ins_guns2_ignore_vip_check` to `1`.
 
 ## Commands
 
