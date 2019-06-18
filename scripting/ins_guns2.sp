@@ -4,6 +4,7 @@
 #include <sourcemod>
 
 #define PLUGIN_NAME "VIP Gun Menu"
+#define PLUGIN_VERSION "0.1.1"
 #define COOLDOWN_TIME 1
 
 int g_lastWeaponsTime[MAXPLAYERS + 1] = {0, ...};
