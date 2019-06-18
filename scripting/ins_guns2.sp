@@ -4,11 +4,9 @@
 #include <sourcemod>
 
 #define PLUGIN_NAME "VIP Gun Menu"
-#define PLUGIN_VERSION "0.1.0"
-#define SPAMTIME 1
+#define COOLDOWN_TIME 1
 
-// While true, all clients are able to access the VIP Gun Menu.
-#define IGNORE_VIP_CHECK false
+int g_lastWeaponsTime[MAXPLAYERS + 1] = {0, ...};
 
 int lastWeaponsTime[MAXPLAYERS + 1] = {0, ...};
 
@@ -21,11 +19,11 @@ public Plugin myinfo = {
 }
 
 public OnClientPostAdminCheck(client) {
-	lastWeaponsTime[client] = 0;
+	g_lastWeaponsTime[client] = 0;
 }
 
 public OnClientDisconnect_Post(client) {
-	lastWeaponsTime[client] = 0;
+	g_lastWeaponsTime[client] = 0;
 }
 
 public OnPluginStart() {
@@ -58,11 +56,11 @@ public Action WeaponMenu(int client, int args) {
 		return Plugin_Handled;
 	}
 
-	if (lastWeaponsTime[client] == 0 || lastWeaponsTime[client] <= (GetTime() - SPAMTIME)) {
-		lastWeaponsTime[client] = GetTime();
+	if (g_lastWeaponsTime[client] == 0 || g_lastWeaponsTime[client] <= (GetTime() - COOLDOWN_TIME)) {
+		g_lastWeaponsTime[client] = GetTime();
 		Weapons(client);
 	} else {
-		PrintToChat(client, "Wait %d seconds to use guns2.", SPAMTIME - (GetTime() - lastWeaponsTime[client]));
+		PrintToChat(client, "Wait %d seconds to use guns2.", COOLDOWN_TIME - (GetTime() - g_lastWeaponsTime[client]));
 	}
 
 	return Plugin_Handled;
