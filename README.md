@@ -8,3 +8,7 @@
 
 `sm_guns2`
 
+## How to Install
+
+Copy the directories `plugins` and `scripting` to your
+`steamapps\common\Insurgency Dedicated Server\insurgency` folder.
