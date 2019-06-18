@@ -9,7 +9,9 @@
 
 ## ConVar
 
-`sm_guns2`
+`ins_guns2_ignore_vip_check` <small>default `0`</small>: When set to 1, all
+players may access the guns menu.
+
 
 ## How to Install
 
