@@ -12,6 +12,7 @@
 `ins_guns2_ignore_vip_check` <small>default `0`</small>: When set to 1, all
 players may access the guns menu.
 
+`ins_guns2_version`: The version of the addon.
 
 ## How to Install
 
