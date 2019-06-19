@@ -94,7 +94,6 @@ public Action InformVIP(Handle timer) {
 public Action About(int client, int args) {
   ReplyToCommand(client, "\x04[About]\x01 %s | version %s", PLUGIN_NAME, PLUGIN_VERSION);
   ReplyToCommand(client, "\x04[Page]\x01 %s", PLUGIN_URL);
-
   return Plugin_Handled;
 }
 
