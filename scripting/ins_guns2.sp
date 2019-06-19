@@ -5,7 +5,7 @@
 
 #define PLUGIN_NAME "VIP Gun Menu"
 #define PLUGIN_DESCRIPTION "Allows the VIP to get a gun."
-#define PLUGIN_VERSION "0.1.1"
+#define PLUGIN_VERSION "0.1.2"
 #define PLUGIN_AUTHOR "Maxim Devoir"
 #define PLUGIN_URL "https://github.com/MaximDevoir/ins-guns2"
 
