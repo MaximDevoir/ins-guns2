@@ -9,6 +9,8 @@
 #define PLUGIN_AUTHOR "Maxim Devoir"
 #define PLUGIN_URL "https://github.com/MaximDevoir/ins-guns2"
 
+#pragma newdecls required
+
 int g_lastWeaponsTime[MAXPLAYERS + 1] = {0, ...};
 
 Handle g_IgnoreVIPCheck;
@@ -22,15 +24,15 @@ public Plugin myinfo = {
 	url = PLUGIN_URL
 }
 
-public OnClientPostAdminCheck(client) {
+public void OnClientPostAdminCheck(int client) {
 	g_lastWeaponsTime[client] = 0;
 }
 
-public OnClientDisconnect_Post(client) {
+public void OnClientDisconnect_Post(int client) {
 	g_lastWeaponsTime[client] = 0;
 }
 
-public OnPluginStart() {
+public void OnPluginStart() {
 	LoadTranslations("common.phrases");
 	CreateConVar("ins_guns2_version", PLUGIN_VERSION, PLUGIN_NAME, FCVAR_NOTIFY|FCVAR_SPONLY|FCVAR_REPLICATED);
 	g_IgnoreVIPCheck = CreateConVar("ins_guns2_ignore_vip_check",
@@ -58,6 +60,7 @@ public OnPluginStart() {
 	HookEvent("round_start", OnRoundStart);
 }
 
+public void OnRoundStart(Handle event, const char[] name, bool dontBroadcast) {
 public OnRoundStart(Handle event, const char[] name, bool dontBroadcast) {
 	PrintToChatAll("The VIP can type !guns2 to open the guns menu.");
 }
@@ -83,7 +86,7 @@ public Action WeaponMenu(int client, int args) {
 	return Plugin_Handled;
 }
 
-public Action Weapons(client) {
+public Action Weapons(int client) {
 	Handle menu = CreateMenu(WeaponMenuHandler);
 
 	SetMenuTitle(menu, PLUGIN_NAME);
@@ -117,7 +120,7 @@ public Action Weapons(client) {
 	return Plugin_Handled;
 }
 
-public WeaponMenuHandler(Handle menu, MenuAction action, client, itemNum) {
+public int WeaponMenuHandler(Handle menu, MenuAction action, int client, int itemNum) {
 	if (action == MenuAction_Select) {
 		switch (itemNum) {
 			case 0: {
@@ -190,12 +193,12 @@ public WeaponMenuHandler(Handle menu, MenuAction action, client, itemNum) {
 	}
 }
 
-public GiveClientWeapon(int client, const char[] item, const char[] name) {
+public void GiveClientWeapon(int client, const char[] item, const char[] name) {
 	GivePlayerItem(client, item);
 	PrintToChat(client, "%s Obtained... Press 1", name);
 }
 
-public bool isVIP(client) {
+public bool isVIP(int client) {
 	// PLATFORM_MAX_PATH is 256 on Windows
 	char modelName[PLATFORM_MAX_PATH];
 	GetClientModel(client, modelName, sizeof(modelName));
