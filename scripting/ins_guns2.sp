@@ -65,6 +65,32 @@ public void OnPluginStart() {
 }
 
 public void OnRoundStart(Handle event, const char[] name, bool dontBroadcast) {
+	// The method `OnRoundStart` is executed before the character model information
+	// is loaded onto the map. The `isVIP` function requires character model
+	// information. Wait a couple seconds before checking character model
+	// information.
+	CreateTimer(5.0, InformVIP);
+}
+
+/**
+ * Search for vip client and inform them of the `guns2` command.
+ */
+public Action InformVIP(Handle timer) {
+	for (int client = 1; client <= MaxClients; client++ ) {
+		if (!IsClientInGame(client) || IsFakeClient(client)) {
+			continue;
+		}
+
+		if (isVIP(client)) {
+			PrintToChat(client, "\x04You are the VIP. Type \x01!guns2\x04 in chat to get a primary weapon.\x01");
+
+			return Plugin_Handled;
+		}
+	}
+
+	return Plugin_Handled;
+}
+
 public Action About(int client, int args) {
 	ReplyToCommand(client, "\x04[About]\x01 %s | version %s", PLUGIN_NAME, PLUGIN_VERSION);
 	ReplyToCommand(client, "\x04[Page]\x01 %s", PLUGIN_URL);
