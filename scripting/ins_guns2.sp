@@ -5,11 +5,11 @@
 
 #define PLUGIN_NAME "VIP Gun Menu"
 #define PLUGIN_VERSION "0.1.1"
-#define COOLDOWN_TIME 1
 
 int g_lastWeaponsTime[MAXPLAYERS + 1] = {0, ...};
 
 Handle g_IgnoreVIPCheck;
+Handle g_CooldownTime;
 
 public Plugin myinfo = {
 	name = PLUGIN_NAME,
@@ -38,6 +38,12 @@ public OnPluginStart() {
 		0.0,
 		true,
 		1.0);
+	g_CooldownTime = CreateConVar("ins_guns2_cooldown_time",
+		"1",
+		"The time a client must wait, measured in seconds, before they may access the weapons menu again.",
+		FCVAR_NOTIFY,
+		true,
+		0.0);
 
 	if (GetConVarInt(g_IgnoreVIPCheck) == 1) {
 		ReplyToCommand(0, "[SM Guns2] g_IgnoreVIPCheck is set to 1.");
@@ -64,11 +70,11 @@ public Action WeaponMenu(int client, int args) {
 		return Plugin_Handled;
 	}
 
-	if (g_lastWeaponsTime[client] == 0 || g_lastWeaponsTime[client] <= (GetTime() - COOLDOWN_TIME)) {
+	if (g_lastWeaponsTime[client] == 0 || g_lastWeaponsTime[client] <= (GetTime() - GetConVarInt(g_CooldownTime))) {
 		g_lastWeaponsTime[client] = GetTime();
 		Weapons(client);
 	} else {
-		PrintToChat(client, "Wait %d seconds to use guns2.", COOLDOWN_TIME - (GetTime() - g_lastWeaponsTime[client]));
+		PrintToChat(client, "Wait %d seconds to use guns2.", GetConVarInt(g_CooldownTime) - (GetTime() - g_lastWeaponsTime[client]));
 	}
 
 	return Plugin_Handled;
