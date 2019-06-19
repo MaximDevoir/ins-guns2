@@ -10,8 +10,17 @@
 
 ## ConVar
 
-`ins_guns2_ignore_vip_check` <small>default `0`</small>: When set to 1, all
-players may access the guns menu.
+### ins_guns2_cooldown_time
+
+The time a client must wait, measured in seconds, before they may access the
+weapons menu again.
+
+Default | `1`
+
+Minimum | `0`
+
+Maximum | no max value limit
+
 
 `ins_guns2_version`: The version of the addon.
 
