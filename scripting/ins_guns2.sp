@@ -57,12 +57,19 @@ public void OnPluginStart() {
 
 	RegConsoleCmd("sm_guns2", WeaponMenu);
 	RegConsoleCmd("guns2", WeaponMenu);
+
+	RegConsoleCmd("sm_guns2_about", About);
+	RegConsoleCmd("guns2_about", About);
+
 	HookEvent("round_start", OnRoundStart);
 }
 
 public void OnRoundStart(Handle event, const char[] name, bool dontBroadcast) {
-public OnRoundStart(Handle event, const char[] name, bool dontBroadcast) {
-	PrintToChatAll("The VIP can type !guns2 to open the guns menu.");
+public Action About(int client, int args) {
+	ReplyToCommand(client, "\x04[About]\x01 %s | version %s", PLUGIN_NAME, PLUGIN_VERSION);
+	ReplyToCommand(client, "\x04[Page]\x01 %s", PLUGIN_URL);
+
+	return Plugin_Handled;
 }
 
 public Action WeaponMenu(int client, int args) {
