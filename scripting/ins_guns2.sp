@@ -4,7 +4,10 @@
 #include <sourcemod>
 
 #define PLUGIN_NAME "VIP Gun Menu"
+#define PLUGIN_DESCRIPTION "Allows the VIP to get a gun."
 #define PLUGIN_VERSION "0.1.1"
+#define PLUGIN_AUTHOR "Maxim Devoir"
+#define PLUGIN_URL "https://github.com/MaximDevoir/ins-guns2"
 
 int g_lastWeaponsTime[MAXPLAYERS + 1] = {0, ...};
 
@@ -13,10 +16,10 @@ Handle g_CooldownTime;
 
 public Plugin myinfo = {
 	name = PLUGIN_NAME,
-	description = "Allows the VIP to get a gun.",
+	description = PLUGIN_DESCRIPTION,
 	version = PLUGIN_VERSION,
-	author = "Maxim Devoir",
-	url = "https://github.com/MaximDevoir/ins-guns2"
+	author = PLUGIN_AUTHOR,
+	url = PLUGIN_URL
 }
 
 public OnClientPostAdminCheck(client) {
