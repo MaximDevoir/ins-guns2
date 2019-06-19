@@ -8,6 +8,9 @@
 
 `guns2` and `sm_guns2` will open the guns2 menu for applicable clients.
 
+`guns2_about` and `sm_guns2_about` will display information relating to the
+plugin.
+
 ## ConVar
 
 ### ins_guns2_ignore_vip_check
