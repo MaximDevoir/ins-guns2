@@ -83,6 +83,7 @@ public Action InformVIP(Handle timer) {
 
     if (isVIP(client)) {
       PrintToChat(client, "\x01You are the VIP. Type \x04!guns2\x01 in team chat to get a primary weapon.");
+      PrintHintText(client, "You are the VIP. Type !guns2 in team chat to get a primary weapon.");
 
       return Plugin_Handled;
     }
