@@ -104,7 +104,7 @@ public Action WeaponMenu(int client, int args) {
   }
 
   if (!isVIP(client) && GetConVarInt(g_IgnoreVIPCheck) != 1) {
-    PrintToChat(client, "The guns2 command is limited to the VIP");
+    PrintToChat(client, "The guns2 command is limited to the VIP.");
     return Plugin_Handled;
   }
 
