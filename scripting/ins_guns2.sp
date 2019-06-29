@@ -15,6 +15,7 @@ int g_lastWeaponsTime[MAXPLAYERS + 1] = {0, ...};
 
 Handle g_IgnoreVIPCheck;
 Handle g_CooldownTime;
+Handle g_AutoOpenWeaponsMenu;
 
 public Plugin myinfo = {
   name = PLUGIN_NAME,
@@ -38,6 +39,14 @@ public void OnPluginStart() {
   g_IgnoreVIPCheck = CreateConVar("ins_guns2_ignore_vip_check",
     "0",
     "When set to 1, all players may access the guns menu.",
+    FCVAR_NOTIFY,
+    true,
+    0.0,
+    true,
+    1.0);
+  g_AutoOpenWeaponsMenu = CreateConVar("ins_guns2_auto_open_weapons_menu",
+    "0",
+    "When set to 1, the weapons menu is automatically opened at the start of a round. Only applies to the VIP.",
     FCVAR_NOTIFY,
     true,
     0.0,
@@ -84,6 +93,10 @@ public Action InformVIP(Handle timer) {
     if (isVIP(client)) {
       PrintToChat(client, "\x01You are the VIP. Type \x04!guns2\x01 in team chat to get a primary weapon.");
       PrintHintText(client, "You are the VIP. Type !guns2 in team chat to get a primary weapon.");
+
+      if (GetConVarInt(g_AutoOpenWeaponsMenu) == 1) {
+        Weapons(client);
+      }
 
       return Plugin_Handled;
     }

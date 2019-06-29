@@ -19,6 +19,13 @@ When set to 1, all players may access the guns menu.
 
 Default | `0`
 
+### ins_guns2_auto_open_weapons_menu
+
+When set to 1, the weapons menu is automatically opened at the start of a round.
+Only applies to the VIP.
+
+Default | `0`
+
 ### ins_guns2_cooldown_time
 
 The time a client must wait, measured in seconds, before they may access the
