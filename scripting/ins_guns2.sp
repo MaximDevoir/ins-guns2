@@ -12,7 +12,7 @@
 #pragma newdecls required
 
 int g_lastWeaponsTime[MAXPLAYERS + 1] = {0, ...};
-
+bool hasVIPOpenedWeaponsMenu = false;
 Handle g_IgnoreVIPCheck;
 Handle g_CooldownTime;
 Handle g_AutoOpenWeaponsMenu;
@@ -71,6 +71,7 @@ public void OnPluginStart() {
   RegConsoleCmd("guns2_about", About);
 
   HookEvent("round_start", OnRoundStart);
+  HookEvent("round_end", OnRoundEnd);
 }
 
 public void OnRoundStart(Handle event, const char[] name, bool dontBroadcast) {
@@ -79,6 +80,10 @@ public void OnRoundStart(Handle event, const char[] name, bool dontBroadcast) {
   // information. Wait a couple seconds before checking character model
   // information.
   CreateTimer(5.0, InformVIP);
+}
+
+public void OnRoundEnd(Handle event, const char[] name, bool dontBroadcast) {
+  hasVIPOpenedWeaponsMenu = false;
 }
 
 /**
@@ -94,7 +99,7 @@ public Action InformVIP(Handle timer) {
       PrintToChat(client, "\x01You are the VIP. Type \x04!guns2\x01 in team chat to get a primary weapon.");
       PrintHintText(client, "You are the VIP. Type !guns2 in team chat to get a primary weapon.");
 
-      if (GetConVarInt(g_AutoOpenWeaponsMenu) == 1) {
+      if (GetConVarInt(g_AutoOpenWeaponsMenu) == 1 && hasVIPOpenedWeaponsMenu == false) {
         Weapons(client);
       }
 
@@ -117,7 +122,9 @@ public Action WeaponMenu(int client, int args) {
     return Plugin_Handled;
   }
 
-  if (!isVIP(client) && GetConVarInt(g_IgnoreVIPCheck) != 1) {
+  bool isClientVIP = isVIP(client);
+
+  if (isClientVIP == false && GetConVarInt(g_IgnoreVIPCheck) != 1) {
     PrintToChat(client, "The guns2 command is limited to the VIP.");
     return Plugin_Handled;
   }
@@ -125,6 +132,10 @@ public Action WeaponMenu(int client, int args) {
   if (g_lastWeaponsTime[client] == 0 || g_lastWeaponsTime[client] <= (GetTime() - GetConVarInt(g_CooldownTime))) {
     g_lastWeaponsTime[client] = GetTime();
     Weapons(client);
+
+    if (isClientVIP == true) {
+      hasVIPOpenedWeaponsMenu = true;
+    }
   } else {
     PrintToChat(client, "Wait %d seconds to use guns2.", GetConVarInt(g_CooldownTime) - (GetTime() - g_lastWeaponsTime[client]));
   }
