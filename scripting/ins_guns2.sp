@@ -103,6 +103,9 @@ public Action InformVIP(Handle timer) {
         Weapons(client);
       }
 
+      GivePlayerItem(client, "weapon_m18");
+      PrintToChat(client, "M18 Obtained... Press 3");
+
       return Plugin_Handled;
     }
   }
