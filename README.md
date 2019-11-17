@@ -49,3 +49,7 @@ Copy the directories `plugins` and `scripting` to your
 Then, reload your plugins with `sm plugins unload_all; sm plugins refresh`
 
 **Requirements**: SourceMod and MetaMod must be installed on the server.
+
+## How to Compile
+
+You can compile the source files yourself by following these [instructions](https://wiki.alliedmods.net/Compiling_SourceMod_Plugins).
